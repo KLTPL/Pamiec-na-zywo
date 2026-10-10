@@ -2,7 +2,10 @@
   {
     "id": "feniks-otwarcie-1946",
     "text": "Po wojnie dawny dom towarowy braci Barasch przejęła spółdzielnia PSS i po remoncie otworzyła go dla klientów 1 lipca 1946 roku.",
-    "placeIds": ["feniks", "rynek"],
+    "placeIds": [
+      "feniks",
+      "rynek"
+    ],
     "yearFrom": 1946,
     "yearTo": 1946,
     "source": "wroclaw.pl",
@@ -11,7 +14,9 @@
   {
     "id": "feniks-krysztalowa-kula",
     "text": "Na wieży budynku, w którym jest Feniks, stała kiedyś ogromna kryształowa kula. Zdjęto ją w 1929 roku, bo trudno było o nią dbać.",
-    "placeIds": ["feniks"],
+    "placeIds": [
+      "feniks"
+    ],
     "yearFrom": 1904,
     "yearTo": 1929,
     "source": "wroclaw.pl",
@@ -20,7 +25,10 @@
   {
     "id": "pomnik-fredry-1956",
     "text": "Pomnik Aleksandra Fredry przywieziono do Wrocławia wiosną 1956 roku i odsłonięto na Rynku 15 lipca 1956.",
-    "placeIds": ["pomnik-fredry", "rynek"],
+    "placeIds": [
+      "pomnik-fredry",
+      "rynek"
+    ],
     "yearFrom": 1956,
     "yearTo": 1956,
     "source": "wroclaw.pl",
@@ -29,7 +37,9 @@
   {
     "id": "hala-targowa-luki",
     "text": "Hala Targowa powstała w latach 1906–1908. Jej żelbetowe łuki były wtedy jednym z najnowocześniejszych rozwiązań w Europie.",
-    "placeIds": ["hala-targowa"],
+    "placeIds": [
+      "hala-targowa"
+    ],
     "yearFrom": 1906,
     "yearTo": 1908,
     "source": "wroclaw.pl",
@@ -38,10 +48,235 @@
   {
     "id": "renoma-nazwa",
     "text": "Nazwę „Renoma” wybrano tuż po wojnie w konkursie gazety „Słowo Polskie”. Wcześniej dom towarowy nazywano Powszechnym Domem Towarowym, w skrócie PDT.",
-    "placeIds": ["renoma", "swidnicka"],
+    "placeIds": [
+      "renoma",
+      "swidnicka"
+    ],
     "yearFrom": 1947,
     "yearTo": 1948,
     "source": "Wikipedia",
     "sourceUrl": "https://en.wikipedia.org/wiki/Renoma"
+  },
+  {
+    "id": "plac-solny-sol",
+    "text": "Plac Solny wziął nazwę od handlu solą, który prowadzono tu od średniowiecza. Dziś zamiast soli są tu kwiaty.",
+    "placeIds": [
+      "plac-solny"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/najstarsze-zdjecie-wroclawia0-dagerotypia-plac-solny-historia"
+  },
+  {
+    "id": "plac-solny-dagerotyp",
+    "text": "Najstarsze znane zdjęcie Wrocławia, dagerotyp, przedstawia właśnie Plac Solny.",
+    "placeIds": [
+      "plac-solny"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/najstarsze-zdjecie-wroclawia0-dagerotypia-plac-solny-historia"
+  },
+  {
+    "id": "piwnica-swidnicka-najstarsza",
+    "text": "Piwnica Świdnicka pod ratuszem działa od XIII wieku i uchodzi za najstarszą restaurację w Polsce. Nazwę wzięła od piwa sprowadzanego ze Świdnicy.",
+    "placeIds": [
+      "piwnica-swidnicka",
+      "ratusz"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "National Geographic Polska",
+    "sourceUrl": "https://www.national-geographic.pl/traveler/smaki-swiata/to-najstarsza-restauracja-w-polsce-jej-poczatki-siegaja-xiii-wieku/"
+  },
+  {
+    "id": "opera-halka-1945",
+    "text": "Pierwszym przedstawieniem w powojennej Operze Wrocławskiej była „Halka” Moniuszki, wystawiona 8 września 1945 roku.",
+    "placeIds": [
+      "opera"
+    ],
+    "yearFrom": 1945,
+    "yearTo": 1945,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/wroclaw-1945-muzyczne-poczatki"
+  },
+  {
+    "id": "kameleon-mendelsohn",
+    "text": "Dom handlowy Kameleon zaprojektował w latach 1927–1928 Erich Mendelsohn. To jego jedyny budynek we Wrocławiu.",
+    "placeIds": [
+      "kameleon",
+      "olawska"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/przedsiebiorczy-wroclaw/domy-handlowe"
+  },
+  {
+    "id": "renoma-wertheim",
+    "text": "Renomę otwarto w 1930 roku jako dom towarowy Wertheim. Był wtedy największym i najbardziej luksusowym domem towarowym w mieście.",
+    "placeIds": [
+      "renoma",
+      "swidnicka"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "Wikipedia",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Renoma"
+  },
+  {
+    "id": "sedesowce-1972",
+    "text": "Bloki przy placu Grunwaldzkim, nazywane sedesowcami, zaprojektowała Jadwiga Grabowska-Hawrylak. Pierwsi mieszkańcy wprowadzili się w 1972 roku.",
+    "placeIds": [
+      "plac-grunwaldzki"
+    ],
+    "yearFrom": 1970,
+    "yearTo": 1973,
+    "source": "Architektura & Biznes",
+    "sourceUrl": "https://www.architekturaibiznes.pl/en/icons-of-polish-architecture-wroclaw-sedesowce,45020.html"
+  },
+  {
+    "id": "elwro-odra-1003",
+    "text": "W wrocławskich zakładach Elwro od 1964 roku produkowano komputery Odra 1003, pierwsze polskie komputery wytwarzane seryjnie.",
+    "placeIds": [],
+    "yearFrom": 1964,
+    "yearTo": 1964,
+    "source": "Elektroda.pl",
+    "sourceUrl": "https://www.elektroda.com/news/news4177179.html"
+  },
+  {
+    "id": "pafawag-ep02",
+    "text": "W Pafawagu powstała w 1953 roku EP02, pierwsza lokomotywa elektryczna zbudowana w Polsce po wojnie.",
+    "placeIds": [],
+    "yearFrom": 1953,
+    "yearTo": 1953,
+    "source": "Wikipedia",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Pafawag"
+  },
+  {
+    "id": "iglica-96-metrow",
+    "text": "Iglicę przy Hali Ludowej postawiono w 1948 roku. Miała 106 metrów; po remoncie skrócono ją do 96.",
+    "placeIds": [
+      "hala-stulecia"
+    ],
+    "yearFrom": 1948,
+    "yearTo": 1948,
+    "source": "Hala Stulecia",
+    "sourceUrl": "https://halastulecia.pl/en/sightseeing/iglica/"
+  },
+  {
+    "id": "hala-ludowa-kopula",
+    "text": "Kiedy w 1913 roku otwierano Halę Ludową, dziś Halę Stulecia, miała największą kopułę na świecie: 67 metrów średnicy.",
+    "placeIds": [
+      "hala-stulecia"
+    ],
+    "yearFrom": 1913,
+    "yearTo": 1913,
+    "source": "Wikipedia",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Centennial_Hall_(Wroc%C5%82aw)"
+  },
+  {
+    "id": "hala-stulecia-unesco",
+    "text": "Od 2006 roku Hala Stulecia jest na Liście światowego dziedzictwa UNESCO.",
+    "placeIds": [
+      "hala-stulecia"
+    ],
+    "yearFrom": 2006,
+    "yearTo": 2006,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/hala-stulecia-na-liscie-unesco"
+  },
+  {
+    "id": "ogrod-japonski-1913",
+    "text": "Ogród Japoński w Parku Szczytnickim założono w 1913 roku, a pomagał przy nim japoński mistrz ogrodów Mankichi Arai.",
+    "placeIds": [
+      "park-szczytnicki"
+    ],
+    "yearFrom": 1913,
+    "yearTo": 1913,
+    "source": "Wikipedia",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Japanese_Garden,_Wroc%C5%82aw"
+  },
+  {
+    "id": "most-grunwaldzki-112",
+    "text": "Most Grunwaldzki otwarto w 1910 roku. Ma 112 metrów i jest najdłuższym mostem wiszącym w Polsce.",
+    "placeIds": [
+      "most-grunwaldzki"
+    ],
+    "yearFrom": 1910,
+    "yearTo": 1910,
+    "source": "In Your Pocket",
+    "sourceUrl": "https://www.inyourpocket.com/wroclaw/grunwaldzki-bridge_140776v"
+  },
+  {
+    "id": "dworzec-1857",
+    "text": "Dworzec Główny otwarto w 1857 roku. Budynek przypominający zamek zaprojektował Wilhelm Grapow.",
+    "placeIds": [
+      "dworzec-glowny"
+    ],
+    "yearFrom": 1857,
+    "yearTo": 1857,
+    "source": "Visit Wrocław",
+    "sourceUrl": "https://visitwroclaw.eu/en/unknown-wroclaw-main-railway-station-a-railroad-gem"
+  },
+  {
+    "id": "aula-leopoldina",
+    "text": "Aula Leopoldina w gmachu uniwersytetu to jedyne w Polsce świeckie wnętrze barokowe z zachowanym pełnym wystrojem, z malowidłami złudnie poszerzającymi salę.",
+    "placeIds": [
+      "uniwersytet",
+      "plac-uniwersytecki"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "Uniwersytet Wrocławski",
+    "sourceUrl": "https://uwr.edu.pl/en/visit-us/aula-leopoldina/"
+  },
+  {
+    "id": "ratusz-zegar-wskazowka",
+    "text": "Renesansowe tarcze zegara na wieży ratusza mają tylko jedną wskazówkę i pokazują same godziny.",
+    "placeIds": [
+      "ratusz",
+      "rynek"
+    ],
+    "yearFrom": null,
+    "yearTo": null,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/zajrzyjcie-z-nami-do-zegara-na-wiezy-ratusza-wiedzieliscie-ze-ma-wahadlo-film-zdjecia"
+  },
+  {
+    "id": "ossolineum-1947",
+    "text": "Ossolineum mieści się w barokowym gmachu przy Szewskiej. Czytelnicy mogli korzystać z jego zbiorów już od września 1947 roku.",
+    "placeIds": [
+      "ossolineum",
+      "szewska"
+    ],
+    "yearFrom": 1947,
+    "yearTo": 1947,
+    "source": "Ossolineum",
+    "sourceUrl": "https://www.ossolineum.pl/en/historia/ossolineum-is-reconstituted-in-wroclaw/"
+  },
+  {
+    "id": "trasa-wz-1974",
+    "text": "Trasę W-Z przez centrum, razem z ulicą Kazimierza Wielkiego, budowano w pierwszej połowie lat 70. Pierwszy odcinek oddano w 1974 roku.",
+    "placeIds": [
+      "kazimierza-wielkiego"
+    ],
+    "yearFrom": 1974,
+    "yearTo": 1974,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/budowa-trasy-wz-we-wroclawiu"
+  },
+  {
+    "id": "druga-hala-targowa",
+    "text": "Wrocław miał dwie hale targowe. Druga, przy ulicy Kolejowej, poszła do rozbiórki po decyzji z 1972 roku; przetrwała tylko ta przy Piaskowej.",
+    "placeIds": [
+      "hala-targowa"
+    ],
+    "yearFrom": 1972,
+    "yearTo": 1972,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/uszkodzone-budynki-we-wroclawiu-po-ii-wojnie-swiatowej"
   }
 ]
