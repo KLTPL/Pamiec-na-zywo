@@ -43,7 +43,10 @@ export type PhotoMatch = z.infer<typeof photoMatchSchema>;
 export const recallResponseSchema = z.object({
   entities: recallEntitiesSchema,
   matches: z.array(photoMatchSchema),
-  carerQuestion: z.string().nullable(),
+  /** Builds on what the senior just said. */
+  followUpQuestion: z.string().nullable(),
+  /** Gently steers towards places the archive covers; shown when nothing matched. */
+  bridgeQuestion: z.string().nullable(),
 });
 
 export type RecallResponse = z.infer<typeof recallResponseSchema>;
