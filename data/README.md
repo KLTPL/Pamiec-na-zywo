@@ -45,3 +45,11 @@ razem ze źródłem — model nie dopisuje faktów od siebie.
 - `placeIds`, `yearFrom`, `yearTo`: czego i kiedy dotyczy (lata mogą być `null`).
 - `source`, `sourceUrl`: skąd to wiemy. Każdą kartę sprawdź w źródle, zanim ją dodasz.
 - Cel: ok. 50 kart, po kilka na każde kluczowe miejsce.
+
+## Gdzie szukać
+
+- **Wikimedia Commons**: partia pocztówek i zdjęć z Polony w domenie publicznej, np. wyszukaj
+  `Wroclaw "nie po 1946"` albo `Wroclaw 1948`. Bezpośredni link do pliku jest pod „Oryginalny plik”.
+- **Narodowe Archiwum Cyfrowe** (szukajwarchiwach.gov.pl, audiovis.nac.gov.pl): filtruj materiały
+  oznaczone jako domena publiczna; plik zapisz ręcznie w `data/originals/` i podaj w `local_file`.
+- **Polona** (polona.pl): pocztówki i fotografie; sprawdzaj oznaczenie praw przy każdym obiekcie.
