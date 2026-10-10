@@ -1,4 +1,4 @@
-import type { Annotation, Photo, Place } from '@repo/shared'
+import { ARCHIVE_ERA, type Annotation, type Photo, type Place } from '@repo/shared'
 import { useMemo } from 'react'
 import { AlbumPhoto } from '@/components/album-photo'
 import { photoCredit, photoHeading } from '@/lib/format'
@@ -23,7 +23,7 @@ export function ArchiveScreen({ photos, places, annotations }: Props) {
         <div className="max-w-2xl">
           <h1 className="font-serif text-4xl">Archiwum wspomnień</h1>
           <p className="mt-3 text-lg text-muted-foreground">
-            Zdjęcia Starego Miasta z lat 1945–1975 z relacjami osób, które je pamiętają. Relacje trafiają tu z rozmów, za zgodą seniorów.
+            Zdjęcia Wrocławia z lat {ARCHIVE_ERA.from}–{ARCHIVE_ERA.to} z relacjami osób, które je pamiętają. Relacje trafiają tu z rozmów, za zgodą seniorów.
           </p>
         </div>
         <a href={paths.start} className="text-muted-foreground underline-offset-4 hover:underline">

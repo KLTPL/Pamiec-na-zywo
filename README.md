@@ -7,7 +7,7 @@ Senior opowiada o swojej przeszłości, a ekran na żywo pokazuje archiwalne zdj
 i rzeczy, o których mówi. Opiekun dostaje podpowiedzi pytań, a wypowiedzi seniora przypinają
 się do zdjęć jako opisy dla archiwum. Dziedzictwo pomaga seniorowi, a senior opisuje dziedzictwo.
 
-Demo obejmuje Stare Miasto Wrocławia z lat 1945–1975.
+Demo obejmuje Wrocław z lat 1945–1980, przede wszystkim Stare Miasto.
 
 ## Stack
 

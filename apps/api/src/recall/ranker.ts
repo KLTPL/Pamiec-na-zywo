@@ -1,4 +1,9 @@
-import type { PhotoMatch, Place, RecallEntities } from '@repo/shared';
+import {
+  ARCHIVE_ERA,
+  type PhotoMatch,
+  type Place,
+  type RecallEntities,
+} from '@repo/shared';
 import type { ArchiveRecord } from '../archive/archive.types';
 import { toPhoto } from '../archive/archive.service';
 import { dot } from './embedder';
@@ -26,8 +31,8 @@ const SEMANTIC_MIN_Z = 1;
 /** Years the senior was 10–30, clipped to the archive era; used when the speech gives no period. */
 export function youthWindow(birthYear: number): YearWindow {
   return {
-    from: Math.max(1945, birthYear + 10),
-    to: Math.min(1975, birthYear + 30),
+    from: Math.max(ARCHIVE_ERA.from, birthYear + 10),
+    to: Math.min(ARCHIVE_ERA.to, birthYear + 30),
   };
 }
 

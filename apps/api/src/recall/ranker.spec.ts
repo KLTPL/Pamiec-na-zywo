@@ -118,7 +118,7 @@ describe('rank', () => {
 
 describe('youthWindow', () => {
   it('covers ages 10–30 clipped to the archive era', () => {
-    expect(youthWindow(1945)).toEqual({ from: 1955, to: 1975 });
+    expect(youthWindow(1955)).toEqual({ from: 1965, to: 1980 });
     expect(youthWindow(1930)).toEqual({ from: 1945, to: 1960 });
   });
 });

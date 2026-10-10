@@ -1,8 +1,8 @@
-import type { Photo } from '@repo/shared'
+import { ARCHIVE_ERA, type Photo } from '@repo/shared'
 
-const FROM = 1945
-const TO = 1975
-const TICKS = [1945, 1955, 1965, 1975]
+const FROM = ARCHIVE_ERA.from
+const TO = ARCHIVE_ERA.to
+const TICKS = [1945, 1960, 1970, 1980]
 
 const position = (year: number) => `${((Math.min(TO, Math.max(FROM, year)) - FROM) / (TO - FROM)) * 100}%`
 
@@ -37,7 +37,7 @@ export function EraStrip({ birthYear, photo }: Props) {
         ))}
       </div>
       <figcaption className="sr-only">
-        Oś lat 1945–1975; jaśniejszy pas to młodość seniora ({youthFrom}–{youthTo})
+        Oś lat {FROM}–{TO}; jaśniejszy pas to młodość seniora ({youthFrom}–{youthTo})
       </figcaption>
     </figure>
   )

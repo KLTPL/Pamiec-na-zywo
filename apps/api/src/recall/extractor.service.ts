@@ -1,7 +1,12 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import type { Fact, Place, SeniorProfile } from '@repo/shared';
+import {
+  ARCHIVE_ERA,
+  type Fact,
+  type Place,
+  type SeniorProfile,
+} from '@repo/shared';
 import { z } from 'zod';
 import { ArchiveService } from '../archive/archive.service';
 import { CLAUDE_MODEL, createClaude, fallbackOptions } from '../claude';
@@ -18,7 +23,7 @@ const extractionSchema = z.object({
 
 export type Extraction = z.infer<typeof extractionSchema>;
 
-const RULES = `Jesteś suflerem opiekuna, który prowadzi rozmowę wspomnieniową z seniorem, często z demencją. Dostajesz ostatnią wypowiedź seniora (transkrypcja mowy, może zawierać błędy), wcześniejszą część rozmowy i jego profil. Aplikacja pokazuje na tej podstawie archiwalne zdjęcia Wrocławia z lat 1945–1975.
+const RULES = `Jesteś suflerem opiekuna, który prowadzi rozmowę wspomnieniową z seniorem, często z demencją. Dostajesz ostatnią wypowiedź seniora (transkrypcja mowy, może zawierać błędy), wcześniejszą część rozmowy i jego profil. Aplikacja pokazuje na tej podstawie archiwalne zdjęcia Wrocławia z lat ${ARCHIVE_ERA.from}–${ARCHIVE_ERA.to}.
 
 Wszystkie pola dotyczą ostatniej wypowiedzi. Wcześniejszej rozmowy używaj tylko do zrozumienia odniesień („tam”, „wtedy”, „ta kawiarnia”); miejsc, o których była mowa wcześniej, nie zwracaj, chyba że ostatnia wypowiedź się do nich odnosi.
 

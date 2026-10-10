@@ -1,6 +1,6 @@
 # Zbiór zdjęć
 
-Demo obejmuje **Stare Miasto Wrocławia z lat 1945–1975**. Automatyczne źródła mają tu bardzo
+Demo obejmuje **Wrocław z lat 1945–1980, przede wszystkim Stare Miasto**. Automatyczne źródła mają tu bardzo
 mało materiału, więc zdjęcia kurujemy ręcznie w `sources.csv`, a `pnpm ingest` robi resztę.
 
 ## Kolumny `sources.csv`

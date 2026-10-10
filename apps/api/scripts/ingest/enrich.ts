@@ -1,6 +1,6 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
-import type { Place } from '@repo/shared';
+import { ARCHIVE_ERA, type Place } from '@repo/shared';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { z } from 'zod';
@@ -17,7 +17,7 @@ const enrichmentSchema = z.object({
 
 export type Enrichment = z.infer<typeof enrichmentSchema>;
 
-const SYSTEM_PROMPT = `Opisujesz archiwalne zdjęcia Wrocławia z lat 1945–1975 do aplikacji, w której opiekun rozmawia z seniorem o jego wspomnieniach.
+const SYSTEM_PROMPT = `Opisujesz archiwalne zdjęcia Wrocławia z lat ${ARCHIVE_ERA.from}–${ARCHIVE_ERA.to} do aplikacji, w której opiekun rozmawia z seniorem o jego wspomnieniach.
 
 Zwróć:
 - caption: 1–2 zdania po polsku o tym, co konkretnie widać: miejsce, ludzie, pojazdy, szyldy, pora roku. Bez ocen i domysłów, bez zwrotu „zdjęcie przedstawia”.

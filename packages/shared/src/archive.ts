@@ -1,5 +1,8 @@
 import { z } from 'zod';
 
+/** Years the photo archive covers. */
+export const ARCHIVE_ERA = { from: 1945, to: 1980 } as const;
+
 export const placeKindSchema = z.enum([
   'square',
   'street',

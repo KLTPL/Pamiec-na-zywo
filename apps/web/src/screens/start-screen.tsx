@@ -1,4 +1,4 @@
-import type { Photo, SeniorProfile } from '@repo/shared'
+import { ARCHIVE_ERA, type Photo, type SeniorProfile } from '@repo/shared'
 import { useMemo, useState, type FormEvent } from 'react'
 import { AlbumPhoto } from '@/components/album-photo'
 import { Button } from '@/components/ui/button'
@@ -56,7 +56,7 @@ export function StartScreen({ photos }: { photos: Photo[] }) {
         <div className="max-w-xl">
           <h1 className="font-serif text-5xl leading-tight">Pamięć na żywo</h1>
           <p className="mt-4 text-lg leading-relaxed text-album-muted">
-            Senior opowiada, a ekran pokazuje zdjęcia miejsc, o których mówi: Wrocław z lat 1945–1975.
+            Senior opowiada, a ekran pokazuje zdjęcia miejsc, o których mówi: Wrocław z lat {ARCHIVE_ERA.from}–{ARCHIVE_ERA.to}.
             Ty dostajesz podpowiedzi, o co zapytać.
           </p>
         </div>

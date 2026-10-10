@@ -11,7 +11,7 @@ temat „Code For Culture”, kategoria **Historia**.
 **Pamięć na żywo** — senior (np. osoba z demencją) opowiada o swojej przeszłości, a ekran na
 żywo pokazuje archiwalne zdjęcia miejsc i rzeczy, o których mówi. Opiekun dostaje podpowiedzi
 pytań, a wypowiedzi seniora przypinają się do zdjęć jako opisy dla archiwum.
-Demo: **Stare Miasto Wrocławia, lata 1945–1975**.
+Demo: **Wrocław, głównie Stare Miasto, lata 1945–1980** (zakres w `ARCHIVE_ERA` w `@repo/shared`).
 
 Aplikacja ma działać **lokalnie** — nie ma deploymentu, nie dodawaj konfiguracji CI/CD ani hostingu.
 
