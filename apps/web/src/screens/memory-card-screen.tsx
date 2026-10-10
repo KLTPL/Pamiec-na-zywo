@@ -53,7 +53,7 @@ export function MemoryCardScreen({ session, photos, places }: Props) {
       {error && <p className="text-destructive">{error}</p>}
       {moments.length === 0 && (
         <p className="text-muted-foreground">
-          W tej rozmowie nie zapisało się jeszcze żadne wspomnienie. Każde zdanie wypowiedziane przy zdjęciu trafia tutaj automatycznie.
+          W tej rozmowie nie zapisało się jeszcze żadne wspomnienie. Każde zdanie seniora trafia tutaj automatycznie, razem ze zdjęciem, którego dotyczy.
         </p>
       )}
 
@@ -61,7 +61,10 @@ export function MemoryCardScreen({ session, photos, places }: Props) {
         {moments.map((moment) => {
           const photo = moment.photoIds.map((id) => photosById.get(id)).find(Boolean)
           return (
-            <li key={moment.id} className="grid items-center gap-6 break-inside-avoid sm:grid-cols-[16rem_1fr]">
+            <li
+              key={moment.id}
+              className={photo ? 'grid items-center gap-6 break-inside-avoid sm:grid-cols-[16rem_1fr]' : 'break-inside-avoid sm:pl-[17.5rem]'}
+            >
               {photo && (
                 <figure className="rounded-md bg-album p-4">
                   <AlbumPhoto photo={photo} />
@@ -80,7 +83,7 @@ export function MemoryCardScreen({ session, photos, places }: Props) {
         })}
       </ol>
 
-      {moments.length > 0 && <ShareToArchive session={session} moments={moments} />}
+      {moments.some((moment) => moment.photoIds.length > 0) && <ShareToArchive session={session} moments={moments} />}
     </main>
   )
 }
@@ -94,14 +97,17 @@ function ShareToArchive({ session, moments }: { session: Session; moments: Momen
   const [consent, setConsent] = useState(false)
   const [state, setState] = useState<{ kind: 'idle' } | { kind: 'sending' } | { kind: 'sent'; count: number } | { kind: 'error'; message: string }>({ kind: 'idle' })
 
+  // Only memories tied to a photo can become testimonies in the archive
+  const shareable = moments.filter((moment) => moment.photoIds.length > 0)
+
   const share = async () => {
     setState({ kind: 'sending' })
     try {
-      const requests = moments.flatMap((moment) =>
+      const requests = shareable.flatMap((moment) =>
         moment.photoIds.map((photoId) => api.createAnnotation({ photoId, quote: moment.quote, contributor, consent: true })),
       )
       await Promise.all(requests)
-      setState({ kind: 'sent', count: moments.length })
+      setState({ kind: 'sent', count: shareable.length })
     } catch (err) {
       setState({ kind: 'error', message: err instanceof Error ? err.message : String(err) })
     }
@@ -111,7 +117,7 @@ function ShareToArchive({ session, moments }: { session: Session; moments: Momen
     <section className="space-y-4 rounded-md bg-card p-6 print:hidden">
       <h2 className="font-serif text-2xl">Przekaż do archiwum</h2>
       <p className="text-muted-foreground">
-        Wspomnienia zostaną przypięte do zdjęć jako relacje świadka. Muzeum i inni zobaczą cytat i podpis, nic więcej.
+        Wspomnienia ze zdjęciem zostaną przypięte do nich jako relacje świadka. Muzeum i inni zobaczą cytat i podpis, nic więcej.
       </p>
       <div className="max-w-md space-y-2">
         <Label htmlFor="contributor">Podpis pod relacją</Label>

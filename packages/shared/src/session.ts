@@ -22,7 +22,8 @@ export type Session = z.infer<typeof sessionSchema>;
 
 export const createMomentRequestSchema = z.object({
   quote: z.string().min(1).max(2000),
-  photoIds: z.array(z.string()).min(1).max(12),
+  /** Empty when the archive has no photo of what the senior talked about. */
+  photoIds: z.array(z.string()).max(12),
 });
 
 export type CreateMomentRequest = z.infer<typeof createMomentRequestSchema>;

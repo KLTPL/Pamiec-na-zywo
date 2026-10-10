@@ -1,6 +1,7 @@
 import {
   compilePlacePatterns,
   matchPlaces,
+  momentPhotoIds,
   type Fact,
   type Photo,
   type Place,
@@ -14,7 +15,7 @@ import { openScreenChannel } from '@/lib/screen-channel'
 const DWELL_MS = 9000
 /** Prompts for the carer appear only once the senior pauses. */
 const SILENCE_MS = 4000
-/** How much of the conversation the recall request sees. */
+/** How much earlier conversation the model sees to resolve "tam" or "wtedy". */
 const CONTEXT_MS = 45000
 const MIN_MOMENT_WORDS = 4
 
@@ -68,9 +69,6 @@ export function useSessionEngine({ sessionId, profile, photos, places }: Options
   const lastSpeechAtRef = useRef(0)
   const pendingPromptRef = useRef<Prompt | null>(null)
   const placesInSentenceRef = useRef(new Set<string>())
-  const sentencePhotosRef = useRef<string[]>([])
-  const recallBusyRef = useRef(false)
-  const recallAgainRef = useRef(false)
   const channelRef = useRef<ReturnType<typeof openScreenChannel> | null>(null)
 
   const display = useCallback((photo: Photo) => {
@@ -88,7 +86,6 @@ export function useSessionEngine({ sessionId, profile, photos, places }: Options
     if (fresh.length === 0) return
     fresh.forEach((photo) => shownRef.current.add(photo.id))
     queueRef.current = urgent ? [...fresh, ...queueRef.current] : [...queueRef.current, ...fresh]
-    sentencePhotosRef.current.push(...fresh.map((photo) => photo.id))
     setFound((previous) => [...fresh, ...previous])
   }, [])
 
@@ -113,68 +110,87 @@ export function useSessionEngine({ sessionId, profile, photos, places }: Options
     return () => clearInterval(timer)
   }, [display])
 
+  /** Photos of a place, closest to the senior's youth first. */
+  const photosOf = useCallback(
+    (placeId: string) =>
+      photos
+        .filter((photo) => photo.placeIds.includes(placeId))
+        .sort((a, b) => youthDistance(a, profile.birthYear) - youthDistance(b, profile.birthYear)),
+    [photos, profile.birthYear],
+  )
+
   /** Tier 1: an exact place name shows that place at once, without waiting for the model. */
   const matchNamedPlaces = useCallback(
     (text: string) => {
       for (const placeId of matchPlaces(text, patterns)) {
         if (placesInSentenceRef.current.has(placeId)) continue
         placesInSentenceRef.current.add(placeId)
-        const best = photos
-          .filter((photo) => photo.placeIds.includes(placeId) && !shownRef.current.has(photo.id))
-          .sort((a, b) => youthDistance(a, profile.birthYear) - youthDistance(b, profile.birthYear))[0]
-        if (best) enqueue([best], true)
+        const unseen = photosOf(placeId).find((photo) => !shownRef.current.has(photo.id))
+        if (unseen) enqueue([unseen], true)
       }
     },
-    [patterns, photos, profile.birthYear, enqueue],
+    [patterns, photosOf, enqueue],
   )
 
-  /** Tier 2: the model reads the recent conversation; one request at a time, latest text wins. */
-  const recallOnce = useCallback(async () => {
-    setStatus({ kind: 'thinking' })
-    const since = Date.now() - CONTEXT_MS
-    const transcript = segmentsRef.current
-      .filter((segment) => segment.at >= since)
-      .map((segment) => segment.text)
-      .join(' ')
-      .slice(-4000)
-
-    try {
-      const result = await api.recall({ transcript, profile, shownPhotoIds: [...shownRef.current] })
-      enqueue(
-        result.matches.map((match) => match.photo),
-        false,
+  /** Saves a sentence as a memory, attached only to photos of what it is about. */
+  const saveMoment = useCallback(
+    (quote: string, sentencePlaceIds: string[], shownAtEnd: Photo | null, found: Photo[]) => {
+      if (quote.split(/\s+/).length < MIN_MOMENT_WORDS) return
+      const candidates = [...found, ...sentencePlaceIds.flatMap(photosOf)]
+      const photoIds = momentPhotoIds({ sentencePlaceIds, shownAtEnd, candidates })
+      api.addMoment(sessionId, { quote, photoIds }).then(
+        () => setSaveError(null),
+        (error: unknown) => setSaveError(error instanceof Error ? error.message : String(error)),
       )
-      const { entities } = result
-      const heard = [
-        ...entities.placeIds.map((id) => placesById.get(id)?.name ?? id),
-        ...entities.topics,
-        ...(entities.yearFrom !== null && entities.yearTo !== null ? [`lata ${entities.yearFrom}–${entities.yearTo}`] : []),
-      ]
-      setStatus({ kind: 'done', heard, found: result.matches.length })
-      pendingPromptRef.current = {
-        followUp: result.followUpQuestion,
-        bridge: result.bridgeQuestion,
-        fact: result.fact,
-        nothingFound: result.matches.length === 0,
-      }
-    } catch (error) {
-      setStatus({ kind: 'error', message: error instanceof Error ? error.message : String(error) })
-    }
-  }, [profile, placesById, enqueue])
+    },
+    [photosOf, sessionId],
+  )
 
-  const runRecall = useCallback(async () => {
-    if (recallBusyRef.current) {
-      recallAgainRef.current = true
-      return
-    }
-    recallBusyRef.current = true
-    // Sentences that arrive during a request are covered by one more request afterwards
-    do {
-      recallAgainRef.current = false
-      await recallOnce()
-    } while (recallAgainRef.current)
-    recallBusyRef.current = false
-  }, [recallOnce])
+  /**
+   * Tier 2: one request per sentence. Earlier sentences go along as context only, so the
+   * model's places refer to this sentence; only the newest sentence updates the prompt.
+   */
+  const recallSentence = useCallback(
+    async (segment: Segment, namedPlaceIds: string[], shownAtEnd: Photo | null) => {
+      const since = segment.at - CONTEXT_MS
+      const context = segmentsRef.current
+        .filter((earlier) => earlier.id < segment.id && earlier.at >= since)
+        .map((earlier) => earlier.text)
+        .join(' ')
+        .slice(-4000)
+      const isLatest = () => segmentsRef.current.at(-1)?.id === segment.id
+
+      setStatus({ kind: 'thinking' })
+      try {
+        const result = await api.recall({ transcript: segment.text, context, profile, shownPhotoIds: [...shownRef.current] })
+        const foundPhotos = result.matches.map((match) => match.photo)
+        enqueue(foundPhotos, false)
+        const sentencePlaceIds = [...new Set([...namedPlaceIds, ...result.entities.placeIds])]
+        saveMoment(segment.text, sentencePlaceIds, shownAtEnd, foundPhotos)
+
+        if (isLatest()) {
+          const { entities } = result
+          const heard = [
+            ...entities.placeIds.map((id) => placesById.get(id)?.name ?? id),
+            ...entities.topics,
+            ...(entities.yearFrom !== null && entities.yearTo !== null ? [`lata ${entities.yearFrom}–${entities.yearTo}`] : []),
+          ]
+          setStatus({ kind: 'done', heard, found: result.matches.length })
+          pendingPromptRef.current = {
+            followUp: result.followUpQuestion,
+            bridge: result.bridgeQuestion,
+            fact: result.fact,
+            nothingFound: result.matches.length === 0,
+          }
+        }
+      } catch (error) {
+        // The memory must not depend on the model: keep it, attributed by the place names heard
+        saveMoment(segment.text, namedPlaceIds, shownAtEnd, [])
+        if (isLatest()) setStatus({ kind: 'error', message: error instanceof Error ? error.message : String(error) })
+      }
+    },
+    [profile, placesById, enqueue, saveMoment],
+  )
 
   const handleInterim = useCallback(
     (text: string) => {
@@ -195,21 +211,11 @@ export function useSessionEngine({ sessionId, profile, photos, places }: Options
       setSegments(segmentsRef.current)
       setInterim('')
 
-      // Every sentence said over a photo becomes a moment; the carer prunes them on the memory card
-      const photoIds = [...new Set([currentRef.current?.id, ...sentencePhotosRef.current])]
-        .filter((id): id is string => Boolean(id))
-        .slice(0, 3)
+      const namedPlaceIds = [...placesInSentenceRef.current]
       placesInSentenceRef.current = new Set()
-      sentencePhotosRef.current = []
-      if (photoIds.length > 0 && text.split(/\s+/).length >= MIN_MOMENT_WORDS) {
-        api.addMoment(sessionId, { quote: text, photoIds }).then(
-          () => setSaveError(null),
-          (error: unknown) => setSaveError(error instanceof Error ? error.message : String(error)),
-        )
-      }
-      void runRecall()
+      void recallSentence(segment, namedPlaceIds, currentRef.current)
     },
-    [matchNamedPlaces, runRecall, sessionId],
+    [matchNamedPlaces, recallSentence],
   )
 
   return {

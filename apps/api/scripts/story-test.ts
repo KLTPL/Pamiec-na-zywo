@@ -60,6 +60,7 @@ async function main() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         transcript: story.text,
+        context: '',
         profile,
         shownPhotoIds: [],
       }),

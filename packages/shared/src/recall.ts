@@ -15,8 +15,10 @@ export const seniorProfileSchema = z.object({
 export type SeniorProfile = z.infer<typeof seniorProfileSchema>;
 
 export const recallRequestSchema = z.object({
-  /** The last ~45 seconds of the conversation. */
-  transcript: z.string().min(1).max(4000),
+  /** The sentence just said; extracted places and topics refer to it. */
+  transcript: z.string().min(1).max(2000),
+  /** Earlier conversation, only for resolving references like "tam" or "wtedy". */
+  context: z.string().max(4000),
   profile: seniorProfileSchema,
   shownPhotoIds: z.array(z.string()).max(1000),
 });

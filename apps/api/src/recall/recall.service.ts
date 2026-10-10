@@ -36,10 +36,15 @@ export class RecallService implements OnModuleInit {
 
   async recall({
     transcript,
+    context,
     profile,
     shownPhotoIds,
   }: RecallRequest): Promise<RecallResponse> {
-    const extraction = await this.extractor.extract(transcript, profile);
+    const extraction = await this.extractor.extract(
+      transcript,
+      context,
+      profile,
+    );
 
     // Aliases catch exact names even if the model misses them; the model adds descriptive mentions
     const placeIds = [

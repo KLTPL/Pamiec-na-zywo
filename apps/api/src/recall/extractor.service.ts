@@ -18,7 +18,9 @@ const extractionSchema = z.object({
 
 export type Extraction = z.infer<typeof extractionSchema>;
 
-const RULES = `Jesteś suflerem opiekuna, który prowadzi rozmowę wspomnieniową z seniorem, często z demencją. Dostajesz fragment wypowiedzi seniora (transkrypcja mowy, może zawierać błędy) i jego profil. Aplikacja pokazuje na tej podstawie archiwalne zdjęcia Wrocławia z lat 1945–1975.
+const RULES = `Jesteś suflerem opiekuna, który prowadzi rozmowę wspomnieniową z seniorem, często z demencją. Dostajesz ostatnią wypowiedź seniora (transkrypcja mowy, może zawierać błędy), wcześniejszą część rozmowy i jego profil. Aplikacja pokazuje na tej podstawie archiwalne zdjęcia Wrocławia z lat 1945–1975.
+
+Wszystkie pola dotyczą ostatniej wypowiedzi. Wcześniejszej rozmowy używaj tylko do zrozumienia odniesień („tam”, „wtedy”, „ta kawiarnia”); miejsc, o których była mowa wcześniej, nie zwracaj, chyba że ostatnia wypowiedź się do nich odnosi.
 
 Zwróć:
 - placeIds: id miejsc z listy poniżej, o których senior mówi — także w odmianie, potocznie albo opisowo (np. „pod zegarem na ratuszu” → ratusz). Tylko id z listy.
@@ -54,6 +56,7 @@ export class ExtractorService {
 
   async extract(
     transcript: string,
+    context: string,
     profile: SeniorProfile,
   ): Promise<Extraction> {
     // Created lazily so the API (archive, sessions) still boots without ANTHROPIC_API_KEY
@@ -83,7 +86,8 @@ export class ExtractorService {
               ? `We Wrocławiu od ${profile.inCitySince}`
               : 'Urodzony we Wrocławiu',
             profile.interests ? `Zainteresowania: ${profile.interests}` : '',
-            `\nWypowiedź:\n«${transcript}»`,
+            context ? `\nWcześniej w rozmowie:\n«${context}»` : '',
+            `\nOstatnia wypowiedź:\n«${transcript}»`,
           ]
             .filter(Boolean)
             .join('\n'),
