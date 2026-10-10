@@ -3,6 +3,8 @@ import { factSchema, photoSchema } from './archive';
 
 export const seniorProfileSchema = z.object({
   name: z.string().min(1).max(80),
+  /** How the carer addresses the senior: "Pani Zofia", "Pan Józef". */
+  address: z.enum(['pani', 'pan']),
   birthYear: z.number().int().min(1900).max(2010),
   /** Year the senior moved to the city, null if born there. */
   inCitySince: z.number().int().min(1900).max(2030).nullable(),

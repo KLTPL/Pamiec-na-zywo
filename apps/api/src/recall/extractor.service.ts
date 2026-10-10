@@ -32,7 +32,7 @@ Zasady obu zdań:
 - To zaproszenie do opowieści, nie test pamięci. Zamiast „Pamięta Pani, w którym roku…?” pisz „Opowie mi Pani o…”, „Jak tam było…?”.
 - Pytaj o zmysły, ludzi i uczucia (zapachy, dźwięki, z kim, co było miłe), nie o daty i fakty.
 - Nie poprawiaj seniora, nie oceniaj i nie dopowiadaj faktów, których nie powiedział.
-- Forma grzecznościowa (Pan/Pani) dopasowana do imienia, najwyżej 15 słów.
+- Forma grzecznościowa podana w profilu (Pani albo Pan), najwyżej 15 słów.
 - Nie poruszaj polityki ani religii.`;
 
 @Injectable()
@@ -78,7 +78,7 @@ export class ExtractorService {
         {
           role: 'user',
           content: [
-            `Senior: ${profile.name}, rocznik ${profile.birthYear}`,
+            `Senior: ${profile.name}, rocznik ${profile.birthYear}, forma: ${profile.address === 'pani' ? 'Pani' : 'Pan'}`,
             profile.inCitySince
               ? `We Wrocławiu od ${profile.inCitySince}`
               : 'Urodzony we Wrocławiu',
