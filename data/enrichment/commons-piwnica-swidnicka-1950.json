@@ -1,0 +1,21 @@
+{
+  "suitable": true,
+  "unsuitableReason": null,
+  "caption": "Zakratowane okno w ścianie ratusza, a po bokach kamienne figury mężczyzny z kuflem i kobiety w chuście, osadzone na wspornikach z rzeźbionymi postaciami. Pod spodem fragment napisu „Piwnica Świdnicka”, w słońcu widać ostre cienie.",
+  "tags": [
+    "okno",
+    "krata",
+    "rzeźba",
+    "figura",
+    "kufel",
+    "napis",
+    "fasada",
+    "ornament",
+    "wspornik",
+    "piwnica"
+  ],
+  "placeIds": [
+    "ratusz",
+    "piwnica-swidnicka"
+  ]
+}

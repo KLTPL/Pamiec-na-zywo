@@ -1,0 +1,20 @@
+{
+  "suitable": true,
+  "unsuitableReason": null,
+  "caption": "Gotycki ratusz we Wrocławiu od strony wschodniej, z wieżą, ozdobnym szczytem z zegarem słonecznym i wykuszami, na pocztówce z podpisem „Wrocław – Ratusz”. Przed budynkiem stoją niskie zabudowania straganowe, a na placu widać nieliczne postacie.",
+  "tags": [
+    "ratusz",
+    "wieża",
+    "szczyt",
+    "wykusz",
+    "zegar",
+    "pocztówka",
+    "plac",
+    "stragan",
+    "rynek"
+  ],
+  "placeIds": [
+    "ratusz",
+    "rynek"
+  ]
+}
