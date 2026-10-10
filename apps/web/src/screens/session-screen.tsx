@@ -48,7 +48,17 @@ export function SessionScreen({ session, photos, places }: Props) {
         <div className="flex min-h-0 w-full flex-1 flex-col items-center justify-center gap-4">
           {current ? (
             <>
-              <AlbumPhoto key={current.id} photo={current} drift className="animate-in fade-in duration-1000" imageClassName="max-h-[52svh]" />
+              {/* The print gets only the height the caption leaves, so it never runs under the header or
+                  the era strip. Its frame padding is 2.5% of the slot width on each side, hence the 5cqw. */}
+              <div className="flex h-[52svh] w-full items-center justify-center @container-size lg:h-auto lg:min-h-0 lg:flex-1">
+                <AlbumPhoto
+                  key={current.id}
+                  photo={current}
+                  drift
+                  className="animate-in fade-in duration-1000"
+                  imageClassName="max-h-[calc(100cqh-5cqw)]"
+                />
+              </div>
               <div className="w-full max-w-3xl text-center">
                 <p className="font-serif text-3xl">{photoHeading(current, placesById)}</p>
                 <p className="mt-1 text-album-muted">{current.caption}</p>
