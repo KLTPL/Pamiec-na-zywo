@@ -18,6 +18,7 @@
     "db:reset": "docker compose down -v && docker compose up -d --wait && pnpm db:migrate",
     "db:generate": "pnpm --filter @repo/api exec prisma generate",
     "db:migrate": "pnpm --filter @repo/api exec prisma migrate dev",
-    "db:studio": "pnpm --filter @repo/api exec prisma studio"
+    "db:studio": "pnpm --filter @repo/api exec prisma studio",
+    "ingest": "pnpm --filter @repo/api ingest"
   }
 }

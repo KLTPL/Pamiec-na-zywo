@@ -22,3 +22,6 @@ logs
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# downloaded source images (photos/ keeps the committed thumbnails)
+data/originals
