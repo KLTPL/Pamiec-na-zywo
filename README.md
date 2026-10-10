@@ -28,6 +28,20 @@ pnpm ingest       # przygotowanie zbioru zdjęć z data/sources.csv
 pnpm dev          # web: http://localhost:5173, api: http://localhost:3000/api
 ```
 
+## Jak wygląda rozmowa
+
+1. Opiekun wpisuje profil seniora (imię, forma Pani/Pan, rok urodzenia) i zaczyna rozmowę.
+2. „Ekran seniora” otwiera drugie okno do pokazania na drugim monitorze, telewizorze albo projektorze:
+   tylko zdjęcie i podpis, sterowane z panelu opiekuna.
+3. Opiekun włącza mikrofon (Chrome). Nazwa miejsca od razu pokazuje jego zdjęcie, a po każdym
+   zdaniu Claude dobiera kolejne zdjęcia, pytanie do rozmowy i ciekawostkę. Podpowiedzi pojawiają
+   się dopiero, gdy senior zrobi pauzę. Gdy nie ma mikrofonu, zdania można wpisywać.
+4. Każde zdanie powiedziane przy zdjęciu zapisuje się jako wspomnienie. Na koniec opiekun przegląda
+   kartę wspomnień, drukuje ją dla rodziny i — za zgodą — przekazuje relacje do archiwum.
+
+Sprawdzenie rozpoznawania miejsc i opóźnienia (przy działającym `pnpm dev`):
+`pnpm --filter @repo/api story-test`.
+
 ## Zbiór zdjęć
 
 Zdjęcia kurujemy ręcznie w `data/sources.csv`: tylko licencje PD, CC0, CC-BY i CC-BY-SA,
