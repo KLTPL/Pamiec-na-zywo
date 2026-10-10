@@ -48,8 +48,17 @@ razem ze źródłem — model nie dopisuje faktów od siebie.
 
 ## Gdzie szukać
 
-- **Wikimedia Commons**: partia pocztówek i zdjęć z Polony w domenie publicznej, np. wyszukaj
-  `Wroclaw "nie po 1946"` albo `Wroclaw 1948`. Bezpośredni link do pliku jest pod „Oryginalny plik”.
+- **Wikimedia Commons**, najlepiej kategorie rocznikowe `Category:1964 in Wrocław` itd. Sprawdzone serie:
+  - pocztówki i zdjęcia z Polony (domena publiczna), np. `Wroclaw "nie po 1946"`, Ossolineum 1948,
+  - Fortepan 1964 (CC BY-SA 3.0): Opera, Plac Uniwersytecki, Hala Ludowa,
+  - Deutsche Fotothek, fot. Richard Peter (CC BY-SA 3.0 de): sceny uliczne i parki ok. 1967–1970,
+  - Stefan Arczyński 1969 (domena publiczna): Elwro, Pafawag, Dolmel,
+  - Gerd Eichmann 1975 (CC BY-SA 4.0): Rynek i ratusz,
+  - KazimierzP, fotopolska.eu (CC BY-SA): zdjęcia rodzinne z lat 1978–1981,
+  - Hans Birger Nilsen 1980 (CC BY-SA 2.0): Plac Wolności, fosa.
+
+  Bezpośredni link do pliku jest pod „Oryginalny plik”. Uwaga na oznaczenia „domena publiczna” przy
+  fotografach zmarłych niedawno (np. zdjęcia z BnF): jeśli nie ma podstawy prawnej, pomiń.
 - **Narodowe Archiwum Cyfrowe** (szukajwarchiwach.gov.pl, audiovis.nac.gov.pl): filtruj materiały
   oznaczone jako domena publiczna; plik zapisz ręcznie w `data/originals/` i podaj w `local_file`.
 - **Polona** (polona.pl): pocztówki i fotografie; sprawdzaj oznaczenie praw przy każdym obiekcie.
