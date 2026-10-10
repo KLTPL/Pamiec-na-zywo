@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { photoSchema } from './archive';
+import { factSchema, photoSchema } from './archive';
 
 export const seniorProfileSchema = z.object({
   name: z.string().min(1).max(80),
@@ -47,6 +47,8 @@ export const recallResponseSchema = z.object({
   followUpQuestion: z.string().nullable(),
   /** Gently steers towards places the archive covers; shown when nothing matched. */
   bridgeQuestion: z.string().nullable(),
+  /** A curated fact card related to what the senior said, quoted verbatim. */
+  fact: factSchema.nullable(),
 });
 
 export type RecallResponse = z.infer<typeof recallResponseSchema>;

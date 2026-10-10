@@ -1,0 +1,47 @@
+[
+  {
+    "id": "feniks-otwarcie-1946",
+    "text": "Po wojnie dawny dom towarowy braci Barasch przejęła spółdzielnia PSS i po remoncie otworzyła go dla klientów 1 lipca 1946 roku.",
+    "placeIds": ["feniks", "rynek"],
+    "yearFrom": 1946,
+    "yearTo": 1946,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/wroclawski-feniks-ma-119-lat-zdjecia"
+  },
+  {
+    "id": "feniks-krysztalowa-kula",
+    "text": "Na wieży budynku, w którym jest Feniks, stała kiedyś ogromna kryształowa kula. Zdjęto ją w 1929 roku, bo trudno było o nią dbać.",
+    "placeIds": ["feniks"],
+    "yearFrom": 1904,
+    "yearTo": 1929,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/wroclawski-feniks-ma-119-lat-zdjecia"
+  },
+  {
+    "id": "pomnik-fredry-1956",
+    "text": "Pomnik Aleksandra Fredry przywieziono do Wrocławia wiosną 1956 roku i odsłonięto na Rynku 15 lipca 1956.",
+    "placeIds": ["pomnik-fredry", "rynek"],
+    "yearFrom": 1956,
+    "yearTo": 1956,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/70-lat-temu-na-wroclawskim-rynku-odslonieto-pomnik-fredry"
+  },
+  {
+    "id": "hala-targowa-luki",
+    "text": "Hala Targowa powstała w latach 1906–1908. Jej żelbetowe łuki były wtedy jednym z najnowocześniejszych rozwiązań w Europie.",
+    "placeIds": ["hala-targowa"],
+    "yearFrom": 1906,
+    "yearTo": 1908,
+    "source": "wroclaw.pl",
+    "sourceUrl": "https://www.wroclaw.pl/dla-mieszkanca/zjawiskowa-hala-targowa-w-detalach-architektoniczna-perelka-wroclawia-zdjecia"
+  },
+  {
+    "id": "renoma-nazwa",
+    "text": "Nazwę „Renoma” wybrano tuż po wojnie w konkursie gazety „Słowo Polskie”. Wcześniej dom towarowy nazywano Powszechnym Domem Towarowym, w skrócie PDT.",
+    "placeIds": ["renoma", "swidnicka"],
+    "yearFrom": 1947,
+    "yearTo": 1948,
+    "source": "Wikipedia",
+    "sourceUrl": "https://en.wikipedia.org/wiki/Renoma"
+  }
+]

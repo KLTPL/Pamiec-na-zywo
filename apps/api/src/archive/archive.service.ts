@@ -1,7 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import {
+  factsFileSchema,
   placesResponseSchema,
   photoSchema,
+  type Fact,
   type Photo,
   type Place,
 } from '@repo/shared';
@@ -19,6 +21,7 @@ const archiveFileSchema = z.array(
 export class ArchiveService {
   private readonly places: Place[];
   private readonly records: ArchiveRecord[];
+  private readonly facts: Fact[];
 
   // Loaded in the constructor so dependent services can build indexes in theirs
   constructor() {
@@ -29,10 +32,17 @@ export class ArchiveService {
     this.records = archiveFileSchema.parse(
       JSON.parse(readFileSync(path.join(dir, 'archive.json'), 'utf8')),
     );
+    this.facts = factsFileSchema.parse(
+      JSON.parse(readFileSync(path.join(dir, 'facts.json'), 'utf8')),
+    );
   }
 
   allPlaces(): Place[] {
     return this.places;
+  }
+
+  allFacts(): Fact[] {
+    return this.facts;
   }
 
   allRecords(): readonly ArchiveRecord[] {

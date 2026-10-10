@@ -43,3 +43,18 @@ export const photoSchema = z.object({
 });
 
 export type Photo = z.infer<typeof photoSchema>;
+
+/** A verified anecdote the carer can weave into the conversation. */
+export const factSchema = z.object({
+  id: z.string(),
+  text: z.string(),
+  placeIds: z.array(z.string()),
+  yearFrom: z.number().int().nullable(),
+  yearTo: z.number().int().nullable(),
+  source: z.string(),
+  sourceUrl: z.string(),
+});
+
+export type Fact = z.infer<typeof factSchema>;
+
+export const factsFileSchema = z.array(factSchema);

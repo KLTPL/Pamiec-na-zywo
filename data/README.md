@@ -34,3 +34,14 @@ Pola z przecinkami bierz w cudzysłów (`"Rynek, widok od strony Ratusza"`).
 Aliasy to frazy, które ludzie mówią. Słowo z gwiazdką pasuje jako prefiks (`świdnick*` →
 „Świdnickiej”, „Świdnicką”), bez gwiazdki tylko dokładnie. Wielkość liter i polskie znaki
 nie mają znaczenia. Unikaj krótkich prefiksów, które łapią zwykłe słowa (`oper*` złapałoby „operację”).
+
+## Karty ciekawostek (`facts.json`)
+
+Krótkie, **zweryfikowane** ciekawostki, które opiekun może wpleść w rozmowę. Claude wybiera
+tylko id karty pasującej do wypowiedzi seniora, a opiekun widzi tekst dosłownie z pliku,
+razem ze źródłem — model nie dopisuje faktów od siebie.
+
+- `text`: 1–2 zdania po polsku, bez polityki i religii; ciekawostka, a nie lekcja historii.
+- `placeIds`, `yearFrom`, `yearTo`: czego i kiedy dotyczy (lata mogą być `null`).
+- `source`, `sourceUrl`: skąd to wiemy. Każdą kartę sprawdź w źródle, zanim ją dodasz.
+- Cel: ok. 50 kart, po kilka na każde kluczowe miejsce.

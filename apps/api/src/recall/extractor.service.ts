@@ -1,7 +1,7 @@
 import type Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import type { Place, SeniorProfile } from '@repo/shared';
+import type { Fact, Place, SeniorProfile } from '@repo/shared';
 import { z } from 'zod';
 import { ArchiveService } from '../archive/archive.service';
 import { CLAUDE_MODEL, createClaude, fallbackOptions } from '../claude';
@@ -13,6 +13,7 @@ const extractionSchema = z.object({
   topics: z.array(z.string()),
   followUpQuestion: z.string().nullable(),
   bridgeQuestion: z.string().nullable(),
+  factId: z.string().nullable(),
 });
 
 export type Extraction = z.infer<typeof extractionSchema>;
@@ -25,6 +26,7 @@ Zwróć:
 - topics: 0–6 rzeczowników w mianowniku liczby pojedynczej: przedmioty, czynności i wydarzenia, o których mówi (np. „tramwaj”, „lody”, „zakupy”, „taniec”).
 - followUpQuestion: jedno krótkie zdanie dla opiekuna, nawiązujące do tego, co senior właśnie powiedział.
 - bridgeQuestion: jedno krótkie zdanie, które łagodnie kieruje rozmowę ku miejscu z listy związanemu z tematem (np. zakupy → Feniks albo Hala Targowa).
+- factId: id karty ciekawostek z listy poniżej, która wyraźnie pasuje do tego, o czym mówi senior; null, jeśli żadna nie pasuje. Możesz nawiązać do tej karty w pytaniu, ale nie podawaj żadnych faktów spoza kart.
 
 Zasady obu zdań:
 - To zaproszenie do opowieści, nie test pamięci. Zamiast „Pamięta Pani, w którym roku…?” pisz „Opowie mi Pani o…”, „Jak tam było…?”.
@@ -43,7 +45,11 @@ export class ExtractorService {
       .allPlaces()
       .map((place: Place) => `${place.id}: ${place.name}`)
       .join('\n');
-    this.system = `${RULES}\n\nMiejsca:\n${places}`;
+    const facts = archive
+      .allFacts()
+      .map((fact: Fact) => `${fact.id}: ${fact.text}`)
+      .join('\n');
+    this.system = `${RULES}\n\nMiejsca:\n${places}\n\nKarty ciekawostek:\n${facts}`;
   }
 
   async extract(

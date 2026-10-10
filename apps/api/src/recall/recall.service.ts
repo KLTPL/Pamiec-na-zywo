@@ -74,6 +74,10 @@ export class RecallService {
       matches,
       followUpQuestion: extraction.followUpQuestion,
       bridgeQuestion: extraction.bridgeQuestion,
+      // Only a card from facts.json is ever shown; an invented id simply yields no fact
+      fact:
+        this.archive.allFacts().find((fact) => fact.id === extraction.factId) ??
+        null,
     };
   }
 }
