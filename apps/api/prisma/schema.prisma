@@ -8,10 +8,33 @@ datasource db {
   provider = "postgresql"
 }
 
-// Placeholder model so the first migration has something to create.
-// Replace it once the hackathon task is known.
-model Example {
+/// One conversation with a senior; the profile is the SeniorProfile contract from @repo/shared.
+model Session {
   id        String   @id @default(cuid())
-  name      String
+  profile   Json
   createdAt DateTime @default(now())
+  moments   Moment[]
+}
+
+/// A quote from the senior together with the photos it was said over.
+model Moment {
+  id        String   @id @default(cuid())
+  sessionId String
+  session   Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  quote     String
+  photoIds  String[]
+  createdAt DateTime @default(now())
+
+  @@index([sessionId])
+}
+
+/// A senior's testimony attached to an archive photo, shared with consent.
+model Annotation {
+  id          String   @id @default(cuid())
+  photoId     String
+  quote       String
+  contributor String
+  createdAt   DateTime @default(now())
+
+  @@index([photoId])
 }
