@@ -21,12 +21,13 @@ export type RankInput = {
 };
 
 const WEIGHTS = { place: 3, time: 1, semantic: 2 };
-// E5 similarities sit in a narrow band (~0.75–0.85). A topic match needs both an absolute
-// floor (calibrated on our captions: true matches ≥ 0.825, misses ≤ 0.80) and to stand out
-// from the rest of the archive; the z-score alone always crowns someone in a small archive.
-const SEMANTIC_MIN_SIMILARITY = 0.81;
+// E5 similarities sit in a narrow band (~0.75–0.87). A topic match needs both an absolute
+// floor and to stand out from the rest of the archive. Calibrated on the 35-photo archive:
+// true matches (szachy, gołębie, opera, komputer, fabryka) have cosine >= 0.82 and z >= 2.2,
+// near misses cluster at z 1.1–1.8 around 0.80–0.81.
+const SEMANTIC_MIN_SIMILARITY = 0.815;
 const SEMANTIC_FULL_SIMILARITY = 0.87;
-const SEMANTIC_MIN_Z = 1;
+const SEMANTIC_MIN_Z = 2;
 
 /** Years the senior was 10–30, clipped to the archive era; used when the speech gives no period. */
 export function youthWindow(birthYear: number): YearWindow {
