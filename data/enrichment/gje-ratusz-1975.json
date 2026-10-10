@@ -1,0 +1,21 @@
+{
+  "suitable": true,
+  "unsuitableReason": null,
+  "caption": "Wschodnia fasada gotyckiego ratusza na Rynku z wieżą, ozdobnym szczytem i zegarem astronomicznym; przed budynkiem stoi jasny samochód dostawczy, a przy wejściu do piwnic czerwona budka i znak parkingu.",
+  "tags": [
+    "ratusz",
+    "wieża",
+    "zegar",
+    "szczyt",
+    "samochód",
+    "znak drogowy",
+    "budka",
+    "okno",
+    "fasada",
+    "plac"
+  ],
+  "placeIds": [
+    "ratusz",
+    "rynek"
+  ]
+}

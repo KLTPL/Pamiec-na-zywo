@@ -1,0 +1,22 @@
+{
+  "suitable": true,
+  "unsuitableReason": null,
+  "caption": "Słoneczny dzień na brukowanej ulicy przy Placu Uniwersyteckim. W głębi widać gmach Uniwersytetu Wrocławskiego z wieżą i rzeźbami, chodnikiem wzdłuż kamiennego muru idą mężczyzna w jasnej koszuli i kobieta, a po lewej stoi narożna kamienica z szyldami.",
+  "tags": [
+    "ulica",
+    "bruk",
+    "chodnik",
+    "kamienica",
+    "wieża",
+    "rzeźba",
+    "przechodzień",
+    "szyld",
+    "latarnia",
+    "uczelnia",
+    "znak drogowy"
+  ],
+  "placeIds": [
+    "uniwersytet",
+    "plac-uniwersytecki"
+  ]
+}
