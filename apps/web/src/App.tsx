@@ -1,63 +1,36 @@
-import { healthResponseSchema, type HealthResponse } from '@repo/shared'
-import { RefreshCw } from 'lucide-react'
-import { useCallback, useEffect, useState } from 'react'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { ScreenState } from '@/components/screen-state'
+import { api } from '@/lib/api'
+import { useRoute } from '@/lib/router'
+import { useLoad } from '@/lib/use-load'
+import { ArchiveScreen } from '@/screens/archive-screen'
+import { MemoryCardScreen } from '@/screens/memory-card-screen'
+import { SeniorScreen } from '@/screens/senior-screen'
+import { SessionScreen } from '@/screens/session-screen'
+import { StartScreen } from '@/screens/start-screen'
 
-type State =
-  | { kind: 'loading' }
-  | { kind: 'ok'; health: HealthResponse }
-  | { kind: 'error'; message: string }
-
-async function fetchHealth(): Promise<State> {
-  try {
-    const res = await fetch('/api/health')
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    return { kind: 'ok', health: healthResponseSchema.parse(await res.json()) }
-  } catch (err) {
-    return { kind: 'error', message: err instanceof Error ? err.message : String(err) }
-  }
-}
+const loadCatalogue = () => Promise.all([api.places(), api.photos()]).then(([places, photos]) => ({ places, photos }))
 
 function App() {
-  const [state, setState] = useState<State>({ kind: 'loading' })
+  const route = useRoute()
+  const routeKey = route.name === 'session' || route.name === 'card' ? `${route.name}:${route.id}` : route.name
 
-  const refresh = useCallback(() => {
-    setState({ kind: 'loading' })
-    void fetchHealth().then(setState)
-  }, [])
-
-  useEffect(() => {
-    void fetchHealth().then(setState)
-  }, [])
+  const state = useLoad(async () => {
+    const catalogue = await loadCatalogue()
+    if (route.name === 'session' || route.name === 'card') return { ...catalogue, session: await api.session(route.id), annotations: [] }
+    if (route.name === 'archive') return { ...catalogue, session: null, annotations: await api.annotations() }
+    return { ...catalogue, session: null, annotations: [] }
+  }, routeKey)
 
   return (
-    <main className="flex min-h-svh items-center justify-center p-6">
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>BEST Hacks 2026</CardTitle>
-          <CardDescription>Boilerplate: Vite + NestJS + Prisma</CardDescription>
-        </CardHeader>
-        <CardContent className="flex items-center justify-between gap-4">
-          <div className="flex gap-2">
-            {state.kind === 'loading' && <Badge variant="outline">checking…</Badge>}
-            {state.kind === 'error' && <Badge variant="destructive">API: {state.message}</Badge>}
-            {state.kind === 'ok' && (
-              <>
-                <Badge>API: {state.health.status}</Badge>
-                <Badge variant={state.health.db === 'up' ? 'default' : 'destructive'}>
-                  DB: {state.health.db}
-                </Badge>
-              </>
-            )}
-          </div>
-          <Button variant="outline" size="icon" onClick={refresh} aria-label="Refresh">
-            <RefreshCw />
-          </Button>
-        </CardContent>
-      </Card>
-    </main>
+    <ScreenState state={state}>
+      {({ places, photos, session, annotations }) => {
+        if (route.name === 'screen') return <SeniorScreen places={places} />
+        if (route.name === 'archive') return <ArchiveScreen photos={photos} places={places} annotations={annotations} />
+        if (route.name === 'session' && session) return <SessionScreen session={session} photos={photos} places={places} />
+        if (route.name === 'card' && session) return <MemoryCardScreen session={session} photos={photos} places={places} />
+        return <StartScreen photos={photos} />
+      }}
+    </ScreenState>
   )
 }
 
