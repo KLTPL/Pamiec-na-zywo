@@ -5,5 +5,8 @@ packages:
 allowBuilds:
   '@parcel/watcher': true
   '@prisma/engines': true
+  esbuild: true
+  onnxruntime-node: true
+  protobufjs: true
   prisma: true
   unrs-resolver: true
