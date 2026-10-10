@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import {
   compilePlacePatterns,
   matchPlaces,
@@ -15,7 +15,7 @@ import { rank, youthWindow } from './ranker';
 const MATCH_LIMIT = 4;
 
 @Injectable()
-export class RecallService {
+export class RecallService implements OnModuleInit {
   private readonly patterns: PlacePattern[];
   private readonly places: Map<string, Place>;
 
@@ -27,6 +27,11 @@ export class RecallService {
     this.places = new Map(
       archive.allPlaces().map((place) => [place.id, place]),
     );
+  }
+
+  /** Loads the embedding model at boot; otherwise the first conversation waits ~15 s for it. */
+  async onModuleInit() {
+    await embed(['rozgrzewka'], 'query');
   }
 
   async recall({

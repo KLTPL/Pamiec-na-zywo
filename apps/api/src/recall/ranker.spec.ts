@@ -122,3 +122,19 @@ describe('youthWindow', () => {
     expect(youthWindow(1930)).toEqual({ from: 1945, to: 1960 });
   });
 });
+
+describe('rank with a small archive', () => {
+  it('shows nothing when the closest photo is still below the similarity floor', () => {
+    // Four photos: one always stands out by z-score, but 0.79 is not a real match
+    const small = [
+      record('a', [], [1960, 1960], [0.79, 0.61, 0]),
+      record('b', [], [1960, 1960], [0.76, 0.65, 0]),
+      record('c', [], [1960, 1960], [0.77, 0.64, 0]),
+      record('d', [], [1960, 1960], [0.76, 0.65, 0]),
+    ];
+    const matches = rank(
+      input({ topics: ['pociąg'] }, { records: small, queryVector: [1, 0, 0] }),
+    );
+    expect(matches).toEqual([]);
+  });
+});
