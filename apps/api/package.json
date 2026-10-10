@@ -19,7 +19,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "dev": "prisma generate && nest start --watch",
     "typecheck": "tsc --noEmit",
-    "ingest": "tsx scripts/ingest/index.ts"
+    "ingest": "tsx scripts/ingest/index.ts",
+    "story-test": "tsx scripts/story-test.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",
