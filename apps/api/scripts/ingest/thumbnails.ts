@@ -4,25 +4,36 @@ import sharp from 'sharp';
 import type { Source } from './sources';
 
 const USER_AGENT = 'PamiecNaZywo/0.1 (BEST Hacks 2026 hackathon project)';
-const MAX_ATTEMPTS = 4;
+const MAX_ATTEMPTS = 6;
 
-/** Wikimedia answers 429 when several large originals are fetched at once; wait and retry. */
-async function download(url: string): Promise<Response> {
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Downloads run one at a time: Wikimedia throttles parallel fetches of large originals
+let downloadQueue: Promise<unknown> = Promise.resolve();
+
+/** Fetches with backoff on 429; its Retry-After of 1 s is too short to clear the limit. */
+async function fetchWithBackoff(url: string): Promise<Response> {
   for (let attempt = 1; ; attempt++) {
     const response = await fetch(url, {
       headers: { 'User-Agent': USER_AGENT },
     });
     if (response.status !== 429 || attempt === MAX_ATTEMPTS) return response;
-    const retryAfter = Number(response.headers.get('retry-after'));
-    const waitMs =
-      (Number.isFinite(retryAfter) && retryAfter > 0
-        ? retryAfter
-        : 5 * attempt) * 1000;
+    const retryAfter = Number(response.headers.get('retry-after')) || 0;
+    const waitMs = Math.max(retryAfter, 5 * attempt) * 1000;
     console.log(
       `  429 from ${new URL(url).host}, retrying in ${waitMs / 1000}s`,
     );
-    await new Promise((resolve) => setTimeout(resolve, waitMs));
+    await sleep(waitMs);
   }
+}
+
+function download(url: string): Promise<Response> {
+  const result = downloadQueue.then(() => fetchWithBackoff(url));
+  downloadQueue = result.then(
+    () => sleep(1000),
+    () => sleep(1000),
+  );
+  return result;
 }
 
 async function originalPath(dataDir: string, source: Source): Promise<string> {
